@@ -6,7 +6,7 @@
  * [group] => [
  *   [type] => [
  *      'interface' => IInterface::class,
- *      'default' => env(...),
+ *      'use' => env(...),
  *      [variant1] => []
  *      [variant2] => []
  *      ...
@@ -15,9 +15,9 @@
  * The 'group' can be chosen as preferred, the model name is recommended
  * The 'type' should be either 'repository', 'searchEngine', or whatever is supposed to be bound here
  * The interface class name is mandatory
- * The 'default' value is also mandatory and should be the environment setting which will then be used to switch between
+ * The 'use' value is also mandatory and should be the environment setting which will then be used to switch between
  *  configurations
- * The 'variant' keys are what has to be set via the "default" setting
+ * The 'variant' keys are what has to be set via the "use" setting
  * Any binding should return a class. It can be set via ['class' => [classname]] or just be the classname
  * If the class itself does require any arguments in the constructor, this can be defined in an array like this:
  * [
@@ -42,7 +42,7 @@
  *)
  */
 return [
-    'default_binding' => 'singleton', // either 'singleton' or 'bind'
+    'default_binding' => 'bind', // either 'singleton' or 'bind'
     'bindings' => [
 
     ],

@@ -1,6 +1,7 @@
 [![GitHub license](https://img.shields.io/github/license/Fanmade/laravel-service-binding)](https://github.com/Fanmade/laravel-service-binding/blob/main/LICENSE)
 [![Code Coverage](https://codecov.io/gh/fanmade/laravel-service-binding/branch/main/graph/badge.svg)](https://codecov.io/gh/fanmade/laravel-service-binding)
-# EARLY WORK IN PROGRESS, NOT USABLE YET
+[![GitHub issues](https://img.shields.io/github/issues/Fanmade/laravel-service-binding)](https://github.com/Fanmade/laravel-service-binding/issues)
+# EARLY WORK IN PROGRESS, WOULD NOT RECOMMEND USING IT YET
 
 # Laravel Service Binding
 

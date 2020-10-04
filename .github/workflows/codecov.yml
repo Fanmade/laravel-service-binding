@@ -8,10 +8,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: shivammathur/setup-php@master
-          with:
-            coverage: pcov
-            php-version: '7.4'
-            extension: dom, fileinfo, mbstring
+        with:
+          coverage: pcov
+          php-version: '7.4'
+          extension: dom, fileinfo, mbstring
       - name: Install composer
           run: |
             composer install --no-suggest --prefer-dist --optimize-autoloader

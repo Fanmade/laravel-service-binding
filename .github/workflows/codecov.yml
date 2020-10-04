@@ -1,6 +1,6 @@
 name: Codecov
 on: [ push ]
-
+#see https://samsonasik.wordpress.com/2020/02/26/publish-coverage-to-codecov-from-github-actions/
 jobs:
   build:
     name: Run phpunit to generate code coverage

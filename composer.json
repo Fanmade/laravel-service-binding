@@ -4,7 +4,6 @@
     "keywords": ["fanmade","laravel","service","repository","repositories","configuration"],
     "homepage": "https://github.com/Fanmade/laravel-service-binding",
     "license": "MIT",
-    "version": "0.0.1",
     "authors": [
         {
             "name": "Benjamin Reuter",

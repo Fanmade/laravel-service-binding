@@ -1,3 +1,5 @@
+[![GitHub license](https://img.shields.io/github/license/Fanmade/laravel-service-binding)](https://github.com/Fanmade/laravel-service-binding/blob/main/LICENSE)
+
 # EARLY WORK IN PROGRESS, NOT USABLE YET
 
 # Laravel Service Binding

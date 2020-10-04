@@ -11,7 +11,7 @@ jobs:
         with:
           coverage: pcov
           php-version: '7.4'
-          extension: dom, fileinfo, mbstring
+          extensions: dom, fileinfo, mbstring
       - name: Install composer
         run: composer install --no-suggest --prefer-dist --optimize-autoloader
       - name: Run tests

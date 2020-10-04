@@ -1,20 +1,30 @@
 name: Codecov
-on:
-    push:
-        branches:
-            - main
+on: [ push ]
+
 jobs:
-    build:
-        name: Run rspec to generate code coverage
-        runs-on: ubuntu-latest
-steps:
-    - uses: actions/checkout@main
-    - name: Set up Ruby 2.6
-      uses: actions/setup-ruby@v1
-      with:
-          version: 2.6.x
-    - name: Run test cases
+  build:
+    name: Run phpunit to generate code coverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: shivammathur/setup-php@master
+          with:
+            coverage: pcov
+            php-version: '7.4'
+            extension: dom, fileinfo, mbstring
+      - name: Install composer
           run: |
-              bundle exec rspec
+            composer install --no-suggest --prefer-dist --optimize-autoloader
+      - name: Run tests
+          run: vendor/bin/phpunit --coverage-clover=coverage.xml
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./coverage.xml
+          flags: tests
+          name: codecov-umbrella
+          yml: ./codecov.yml
+          fail_ci_if_error: true
           env:
-              CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}
+            CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}

@@ -23,7 +23,7 @@ class BindingServiceProvider extends ServiceProvider
         if (function_exists('config_path')) {
             $this->publishes(
                 [
-                    __DIR__ . '/config/service-bindings.php' => config_path('service-bindings.php'),
+                    __DIR__ . '/../config/service-bindings.php' => config_path('service-bindings.php'),
                 ]
             );
         }

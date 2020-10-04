@@ -13,10 +13,9 @@ jobs:
           php-version: '7.4'
           extension: dom, fileinfo, mbstring
       - name: Install composer
-          run: |
-            composer install --no-suggest --prefer-dist --optimize-autoloader
+        run: composer install --no-suggest --prefer-dist --optimize-autoloader
       - name: Run tests
-          run: vendor/bin/phpunit --coverage-clover=coverage.xml
+        run: vendor/bin/phpunit --coverage-clover=coverage.xml
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
         with:

@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2020 ACTINEO GmbH.
  */
@@ -14,7 +16,6 @@ use PHPUnit\Framework\TestCase;
 
 interface TestInterface
 {
-
 }
 
 interface TestInterfaceRequiringArguments
@@ -52,11 +53,11 @@ class DependencyResolverTest extends TestCase
                     'bar' => [
                         'interface' => TestInterface::class,
                         'use' => 'use',
-                        'eloquent' => new class {
-                        }
-                    ]
-                ]
-            ]
+                        'eloquent' => new class() {
+                        },
+                    ],
+                ],
+            ],
         ];
         $this->expectException(InvalidConfigurationException::class);
         DependencyResolver::resolve($config, $app);
@@ -70,11 +71,11 @@ class DependencyResolverTest extends TestCase
                 'foo' => [
                     'bar' => [
                         'interface' => TestInterface::class,
-                        'eloquent' => new class {
-                        }
-                    ]
-                ]
-            ]
+                        'eloquent' => new class() {
+                        },
+                    ],
+                ],
+            ],
         ];
         $this->expectException(InvalidConfigurationException::class);
         DependencyResolver::resolve($config, $app);
@@ -88,11 +89,11 @@ class DependencyResolverTest extends TestCase
                 'foo' => [
                     'bar' => [
                         'use' => 'eloquent',
-                        'eloquent' => new class {
-                        }
-                    ]
-                ]
-            ]
+                        'eloquent' => new class() {
+                        },
+                    ],
+                ],
+            ],
         ];
         $this->expectException(InvalidConfigurationException::class);
         DependencyResolver::resolve($config, $app);
@@ -108,11 +109,11 @@ class DependencyResolverTest extends TestCase
                     'bar' => [
                         'interface' => Test_Interface_Ok_A::class,
                         'use' => 'eloquent',
-                        'eloquent' => new class {
-                        }
-                    ]
-                ]
-            ]
+                        'eloquent' => new class() {
+                        },
+                    ],
+                ],
+            ],
         ];
         $this->expectException(InvalidConfigurationException::class);
         DependencyResolver::resolve($config, $app);
@@ -127,11 +128,11 @@ class DependencyResolverTest extends TestCase
                     'bar' => [
                         'interface' => TestInterface::class,
                         'use' => 'eloquent',
-                        'foo' => new class {
-                        }
-                    ]
-                ]
-            ]
+                        'foo' => new class() {
+                        },
+                    ],
+                ],
+            ],
         ];
         $this->expectException(InvalidConfigurationException::class);
         DependencyResolver::resolve($config, $app);
@@ -147,11 +148,11 @@ class DependencyResolverTest extends TestCase
                         'interface' => TestInterface::class,
                         'type' => 'eloquent',
                         'use' => 'eloquent',
-                        'eloquent' => new class {
+                        'eloquent' => new class() {
                         },
-                    ]
-                ]
-            ]
+                    ],
+                ],
+            ],
         ];
         $this->expectException(InvalidConfigurationException::class);
         DependencyResolver::resolve($config, $app);
@@ -168,9 +169,9 @@ class DependencyResolverTest extends TestCase
                         'type' => 'eloquent',
                         'use' => 'eloquent',
                         'eloquent' => [],
-                    ]
-                ]
-            ]
+                    ],
+                ],
+            ],
         ];
         $this->expectException(InvalidConfigurationException::class);
         DependencyResolver::resolve($config, $app);
@@ -189,9 +190,9 @@ class DependencyResolverTest extends TestCase
                         'eloquent' => [
                             'foo' => 'bar',
                         ],
-                    ]
-                ]
-            ]
+                    ],
+                ],
+            ],
         ];
         $this->expectException(InvalidConfigurationException::class);
         DependencyResolver::resolve($config, $app);
@@ -199,7 +200,7 @@ class DependencyResolverTest extends TestCase
 
     public function test_resolve_does_bind_class()
     {
-        $cls = new class () {
+        $cls = new class() {
         };
         $app = Mockery::mock(Application::class);
 
@@ -222,9 +223,9 @@ class DependencyResolverTest extends TestCase
                         'eloquent' => [
                             'class' => $cls,
                         ],
-                    ]
-                ]
-            ]
+                    ],
+                ],
+            ],
         ];
         DependencyResolver::resolve($config, $app);
     }
@@ -254,11 +255,11 @@ class DependencyResolverTest extends TestCase
                             'arguments' => [
                                 'foo' => 'foo',
                                 'bar' => ['hey' => 'ho'],
-                            ]
+                            ],
                         ],
-                    ]
-                ]
-            ]
+                    ],
+                ],
+            ],
         ];
         DependencyResolver::resolve($config, $app);
     }
@@ -284,9 +285,9 @@ class DependencyResolverTest extends TestCase
                         'interface' => TestInterface::class,
                         'use' => 'eloquent',
                         'eloquent' => TestClass::class,
-                    ]
-                ]
-            ]
+                    ],
+                ],
+            ],
         ];
         DependencyResolver::resolve($config, $app);
     }
@@ -312,11 +313,11 @@ class DependencyResolverTest extends TestCase
                         'interface' => TestInterface::class,
                         'use' => 'eloquent',
                         'eloquent' => [
-                            'class' => TestClass::class
+                            'class' => TestClass::class,
                         ],
-                    ]
-                ]
-            ]
+                    ],
+                ],
+            ],
         ];
         DependencyResolver::resolve($config, $app);
     }
@@ -354,12 +355,12 @@ class DependencyResolverTest extends TestCase
                                 'foo' => 'foo',
                                 [
                                     'interface' => TestInterfaceRequiringArguments::class,
-                                ]
-                            ]
+                                ],
+                            ],
                         ],
-                    ]
-                ]
-            ]
+                    ],
+                ],
+            ],
         ];
         $this->expectException(InvalidConfigurationException::class);
         DependencyResolver::resolve($config, $app);
@@ -385,7 +386,7 @@ class DependencyResolverTest extends TestCase
                 $this->assertEquals(
                     [
                         'foo',
-                        ['boo' => 'bar']
+                        ['boo' => 'bar'],
                     ],
                     $arguments
                 );
@@ -407,14 +408,14 @@ class DependencyResolverTest extends TestCase
                                     'interface' => TestInterfaceRequiringArguments::class,
                                     'arguments' => [
                                         'foo' => 'foo',
-                                        'bar' => ['boo' => 'bar']
-                                    ]
-                                ]
-                            ]
+                                        'bar' => ['boo' => 'bar'],
+                                    ],
+                                ],
+                            ],
                         ],
-                    ]
-                ]
-            ]
+                    ],
+                ],
+            ],
         ];
         $this->expectException(InvalidConfigurationException::class);
         DependencyResolver::resolve($config, $app);

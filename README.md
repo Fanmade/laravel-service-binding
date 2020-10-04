@@ -1,3 +1,5 @@
+# EARLY WORK IN PROGRESS, NOT USABLE YET
+
 # Laravel Service Binding
 
 Laravel does provide all necessary tools to allow using service or repository binding.

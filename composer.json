@@ -1,0 +1,23 @@
+{
+    "name": "fanmade/laravel-service-binding",
+    "description": "Provide configuration to allow service and repository binding and switching between them via environment variables",
+    "keywords": ["fanmade","laravel","service","repository","repositories","configuration"],
+    "homepage": "https://github.com/Fanmade/laravel-service-binding",
+    "license": "MIT",
+    "version": "0.0.1",
+    "authors": [
+        {
+            "name": "Benjamin Reuter",
+            "email": "ben@reuterben.de",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Fanmade\\ServiceBinding\\": "src"
+        }
+    }
+}

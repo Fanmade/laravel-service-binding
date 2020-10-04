@@ -2,7 +2,6 @@
 
 namespace Fanmade\ServiceBinding;
 
-use Fanmade\ServiceBinding\Console\ServiceBindingCheck;
 use Fanmade\ServiceBinding\Resolver\DependencyResolver;
 use Illuminate\Support\ServiceProvider;
 
@@ -28,13 +27,14 @@ class BindingServiceProvider extends ServiceProvider
             );
         }
 
-        if ($this->app->runningInConsole()) {
-            $this->commands(
-                [
-                    ServiceBindingCheck::class,
-                ]
-            );
-        }
+//        if ($this->app->runningInConsole()) {
+//            $this->commands(
+//                [
+//                    Fanmade\ServiceBinding\Console\AddBinding::class,
+//                    Fanmade\ServiceBinding\Console\ServiceBindingCheck::class,
+//                ]
+//            );
+//        }
     }
 
 }

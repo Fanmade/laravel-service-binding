@@ -3,7 +3,8 @@
          verbose="true" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
     <coverage>
         <include>
-            <directory suffix=".php">src/</directory>
+            <directory suffix=".php">src/Resolver/</directory>
+            <directory suffix=".php">src/Console</directory>
         </include>
     </coverage>
     <testsuites>

@@ -12,6 +12,7 @@ class ServiceBindingCheck extends Command
 
     public function handle()
     {
+        // TODO: add functionality
         $this->info('Check successfull');
         return 0;
     }

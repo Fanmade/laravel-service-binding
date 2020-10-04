@@ -51,7 +51,7 @@ class DependencyResolverTest extends TestCase
                 'foo' => [
                     'bar' => [
                         'interface' => TestInterface::class,
-                        'default' => 'default',
+                        'use' => 'use',
                         'eloquent' => new class {
                         }
                     ]
@@ -62,7 +62,7 @@ class DependencyResolverTest extends TestCase
         DependencyResolver::resolve($config, $app);
     }
 
-    public function test_resolve_does_handle_missing_default()
+    public function test_resolve_does_handle_missing_use()
     {
         $app = Mockery::mock(Application::class);
         $config = [
@@ -87,7 +87,7 @@ class DependencyResolverTest extends TestCase
             'bindings' => [
                 'foo' => [
                     'bar' => [
-                        'default' => 'eloquent',
+                        'use' => 'eloquent',
                         'eloquent' => new class {
                         }
                     ]
@@ -107,7 +107,7 @@ class DependencyResolverTest extends TestCase
                 'foo' => [
                     'bar' => [
                         'interface' => Test_Interface_Ok_A::class,
-                        'default' => 'eloquent',
+                        'use' => 'eloquent',
                         'eloquent' => new class {
                         }
                     ]
@@ -118,7 +118,7 @@ class DependencyResolverTest extends TestCase
         DependencyResolver::resolve($config, $app);
     }
 
-    public function test_resolve_does_handle_unset_default()
+    public function test_resolve_does_handle_unset_use()
     {
         $app = Mockery::mock(Application::class);
         $config = [
@@ -126,7 +126,7 @@ class DependencyResolverTest extends TestCase
                 'foo' => [
                     'bar' => [
                         'interface' => TestInterface::class,
-                        'default' => 'eloquent',
+                        'use' => 'eloquent',
                         'foo' => new class {
                         }
                     ]
@@ -146,7 +146,7 @@ class DependencyResolverTest extends TestCase
                     'bar' => [
                         'interface' => TestInterface::class,
                         'type' => 'eloquent',
-                        'default' => 'eloquent',
+                        'use' => 'eloquent',
                         'eloquent' => new class {
                         },
                     ]
@@ -166,7 +166,7 @@ class DependencyResolverTest extends TestCase
                     'bar' => [
                         'interface' => TestInterface::class,
                         'type' => 'eloquent',
-                        'default' => 'eloquent',
+                        'use' => 'eloquent',
                         'eloquent' => [],
                     ]
                 ]
@@ -185,7 +185,7 @@ class DependencyResolverTest extends TestCase
                     'bar' => [
                         'interface' => TestInterface::class,
                         'type' => 'eloquent',
-                        'default' => 'eloquent',
+                        'use' => 'eloquent',
                         'eloquent' => [
                             'foo' => 'bar',
                         ],
@@ -218,7 +218,7 @@ class DependencyResolverTest extends TestCase
                 'foo' => [
                     'bar' => [
                         'interface' => TestInterface::class,
-                        'default' => 'eloquent',
+                        'use' => 'eloquent',
                         'eloquent' => [
                             'class' => $cls,
                         ],
@@ -248,7 +248,7 @@ class DependencyResolverTest extends TestCase
                 'foo' => [
                     'bar' => [
                         'interface' => TestInterface::class,
-                        'default' => 'eloquent',
+                        'use' => 'eloquent',
                         'eloquent' => [
                             'class' => TestClassRequiringArguments::class,
                             'arguments' => [
@@ -282,7 +282,7 @@ class DependencyResolverTest extends TestCase
                 'foo' => [
                     'bar' => [
                         'interface' => TestInterface::class,
-                        'default' => 'eloquent',
+                        'use' => 'eloquent',
                         'eloquent' => TestClass::class,
                     ]
                 ]
@@ -310,7 +310,7 @@ class DependencyResolverTest extends TestCase
                 'foo' => [
                     'bar' => [
                         'interface' => TestInterface::class,
-                        'default' => 'eloquent',
+                        'use' => 'eloquent',
                         'eloquent' => [
                             'class' => TestClass::class
                         ],
@@ -347,7 +347,7 @@ class DependencyResolverTest extends TestCase
                 'foo' => [
                     'bar' => [
                         'interface' => TestInterface::class,
-                        'default' => 'eloquent',
+                        'use' => 'eloquent',
                         'eloquent' => [
                             'class' => TestClassRequiringArguments::class,
                             'arguments' => [
@@ -398,7 +398,7 @@ class DependencyResolverTest extends TestCase
                 'foo' => [
                     'bar' => [
                         'interface' => TestInterface::class,
-                        'default' => 'eloquent',
+                        'use' => 'eloquent',
                         'eloquent' => [
                             'class' => TestClassRequiringArguments::class,
                             'arguments' => [

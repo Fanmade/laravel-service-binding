@@ -158,24 +158,24 @@ class DependencyResolver
      */
     protected function validateSettings(string $model, string $name, array $config)
     {
-        if (!array_key_exists('default', $config)) {
+        if (!array_key_exists('use', $config)) {
             throw new InvalidConfigurationException(
-                "Missing 'default' setting for {$name} binding configuration of model {$model}",
+                "Missing 'use' setting for {$name} binding configuration of model {$model}",
                 1600291820280
             );
         }
 
-        if (!array_key_exists($config['default'], $config)) {
+        if (!array_key_exists($config['use'], $config)) {
             throw new InvalidConfigurationException(
-                "Invalid 'default' of value '{$config['default']}' setting for {$name} binding "
+                "Invalid 'use' of value '{$config['use']}' setting for {$name} binding "
                 . "configuration of model {$model}",
                 1600291945252
             );
         }
 
-        if (in_array($config['default'], ['default', 'interface'])) {
+        if (in_array($config['use'], ['use', 'interface'])) {
             throw new InvalidConfigurationException(
-                "Invalid reserved '{$config['default']}' value for 'default' of settings for {$name} binding "
+                "Invalid reserved '{$config['use']}' value for 'use' of settings for {$name} binding "
                 . "configuration of model {$model}",
                 1601453757901
             );
@@ -195,6 +195,6 @@ class DependencyResolver
             );
         }
 
-        return $config[$config['default']];
+        return $config[$config['use']];
     }
 }

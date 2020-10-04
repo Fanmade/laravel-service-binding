@@ -2,6 +2,7 @@
 
 namespace Fanmade\ServiceBinding\Resolver;
 
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Psr\Container\ContainerInterface;
 
 class DependencyResolver
@@ -10,20 +11,17 @@ class DependencyResolver
 
     protected string $defaultType;
 
-    protected float $start;
-
     protected int $resolveCount = 0;
 
     protected function __construct(ContainerInterface $app)
     {
-        $this->start = microtime(true);
         $this->container = $app;
     }
 
     /**
      * @param array $configurationArray
      * @param \Psr\Container\ContainerInterface $app
-     * @throws \App\Resolver\InvalidConfigurationException
+     * @throws \Fanmade\ServiceBinding\Resolver\InvalidConfigurationException
      */
     public static function resolve(array $configurationArray, ContainerInterface $app): void
     {
@@ -33,15 +31,12 @@ class DependencyResolver
         foreach (($configurationArray['bindings'] ?? []) as $model => $bindings) {
             $resolver->resolveModelBindings($bindings, $model);
         }
-
-        $time = microtime(true) - $resolver->start;
-        Log::debug("Resolved {$resolver->resolveCount} bindings in {$time} seconds");
     }
 
     /**
      * @param array $bindings
      * @param string $model
-     * @throws \App\Resolver\InvalidConfigurationException
+     * @throws \Fanmade\ServiceBinding\Resolver\InvalidConfigurationException
      */
     protected function resolveModelBindings(array $bindings, string $model): void
     {
@@ -52,13 +47,7 @@ class DependencyResolver
             $resolved = $this->resolveConfiguration($config);
             $type = $this->getType($settings, $model);
 
-            // get_class is too costly to run it outside of debug mode
-            if (config('app.debug')) {
-                $resolvedName = get_class($resolved);
-                Log::debug("Setting '{$resolvedName}' as '{$name}' via '{$type}' for '{$model}'");
-            }
-
-            $this->container->$type($interface, fn($app) => $resolved);
+            $this->container->$type($interface, fn ($app) => $resolved);
             $this->resolveCount++;
         }
     }
@@ -67,7 +56,7 @@ class DependencyResolver
      * @param array $settings
      * @param string $model
      * @return string
-     * @throws \App\Resolver\InvalidConfigurationException
+     * @throws \Fanmade\ServiceBinding\Resolver\InvalidConfigurationException
      */
     protected function getType(array $settings, string $model): string
     {
@@ -86,7 +75,7 @@ class DependencyResolver
      * @param mixed $configuration
      * @param bool $isArgument
      * @return mixed
-     * @throws \App\Resolver\InvalidConfigurationException
+     * @throws \Fanmade\ServiceBinding\Resolver\InvalidConfigurationException
      */
     protected function resolveConfiguration($configuration, bool $isArgument = false)
     {
@@ -141,12 +130,13 @@ class DependencyResolver
      * @param string $interface
      * @param array $arguments
      * @return mixed
-     * @throws \App\Resolver\InvalidConfigurationException
+     * @throws \Fanmade\ServiceBinding\Resolver\InvalidConfigurationException
      */
     protected function resolveInterface(string $interface, array $arguments)
     {
         try {
             if (!empty($arguments)) {
+                /** @noinspection PhpUndefinedMethodInspection */
                 return $this->container->makeWith($interface, $arguments);
             }
 
@@ -164,7 +154,7 @@ class DependencyResolver
      * @param string $name
      * @param array $config
      * @return array|string|callable
-     * @throws \App\Resolver\InvalidConfigurationException
+     * @throws \Fanmade\ServiceBinding\Resolver\InvalidConfigurationException
      */
     protected function validateSettings(string $model, string $name, array $config)
     {

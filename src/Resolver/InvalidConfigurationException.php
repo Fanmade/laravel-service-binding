@@ -2,7 +2,8 @@
 
 namespace Fanmade\ServiceBinding\Resolver;
 
-class InvalidConfigurationException extends \Exception
-{
+use Exception;
 
+class InvalidConfigurationException extends Exception
+{
 }

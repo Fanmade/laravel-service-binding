@@ -31,3 +31,16 @@ public function register()
 Or you switch to Symfony where that's not a problem because you only have to update your configuration files.
 
 This package here does try to provide a solution for Laravel applications.
+
+## Installation
+
+Just install via composer
+```
+composer require fanmade/laravel-service-binding
+```
+and publish the configuration file via
+```
+php artisan vendor:publish --provider="Fanmade\ServiceBinding\BindingServiceProvider" --tag=config
+```
+
+Now you can add your bindings into the configuration file.

@@ -36,5 +36,4 @@ class BindingServiceProvider extends ServiceProvider
 //            );
 //        }
     }
-
 }

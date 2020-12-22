@@ -2,6 +2,7 @@
 
 namespace Fanmade\ServiceBinding\Resolver;
 
+use Fanmade\ServiceBinding\Validator\BindingConfigurationValidator;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Psr\Container\ContainerInterface;
 
@@ -13,9 +14,12 @@ class DependencyResolver
 
     protected int $resolveCount = 0;
 
+    protected BindingConfigurationValidator $validator;
+
     protected function __construct(ContainerInterface $app)
     {
         $this->container = $app;
+        $this->validator = new BindingConfigurationValidator();
     }
 
     /**
@@ -41,12 +45,12 @@ class DependencyResolver
     protected function resolveModelBindings(array $bindings, string $model): void
     {
         foreach ($bindings as $interface => $settings) {
-            $config = $this->validateSettings($model, $interface, $settings);
+            $config = $this->validator->validateSettings($model, $interface, $settings);
 
             $resolved = $this->resolveConfiguration($config);
             $type = $settings['_type'] ?? $this->defaultType;
 
-            $this->container->$type($interface, fn($app) => $resolved);
+            $this->container->$type($interface, fn ($app) => $resolved);
             $this->resolveCount++;
         }
     }
@@ -127,46 +131,5 @@ class DependencyResolver
                 1601452874405
             );
         }
-    }
-
-    /**
-     * @param string $model
-     * @param string $interface
-     * @param array $config
-     * @return array|string|callable
-     * @throws \Fanmade\ServiceBinding\Resolver\InvalidConfigurationException
-     */
-    protected function validateSettings(string $model, string $interface, array $config)
-    {
-        if (!array_key_exists('_use', $config)) {
-            throw new InvalidConfigurationException(
-                "Missing 'use' setting for interface '{$interface}' binding configuration of model {$model}",
-                1600291820280
-            );
-        }
-
-        if (!array_key_exists($config['_use'], $config)) {
-            throw new InvalidConfigurationException(
-                "Invalid '_use' of value '{$config['_use']}' setting for interface '{$interface}' binding "
-                . "configuration of model {$model}",
-                1600291945252
-            );
-        }
-
-        if (array_key_exists('_type', $config) && !in_array($config['_type'], ['bind', 'singleton'])) {
-            throw new InvalidConfigurationException(
-                "Invalid '_type' setting for binding configuration of model {$model}",
-                16014570968532
-            );
-        }
-
-        if (!interface_exists($interface)) {
-            throw new InvalidConfigurationException(
-                "'{$interface}' is not a valid interface for binding configuration of model {$model}",
-                1601457096826
-            );
-        }
-
-        return $config[$config['_use']];
     }
 }

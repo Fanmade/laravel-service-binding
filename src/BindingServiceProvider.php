@@ -27,13 +27,13 @@ class BindingServiceProvider extends ServiceProvider
             );
         }
 
-//        if ($this->app->runningInConsole()) {
-//            $this->commands(
-//                [
-//                    Fanmade\ServiceBinding\Console\AddBinding::class,
-//                    Fanmade\ServiceBinding\Console\ServiceBindingCheck::class,
-//                ]
-//            );
-//        }
+        if ($this->app->runningInConsole()) {
+            $this->commands(
+                [
+                    \Fanmade\ServiceBinding\Console\AddBinding::class,
+                    \Fanmade\ServiceBinding\Console\ServiceBindingCheck::class,
+                ]
+            );
+        }
     }
 }

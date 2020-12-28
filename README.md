@@ -40,7 +40,7 @@ composer require fanmade/laravel-service-binding
 ```
 and publish the configuration file via
 ```
-php artisan vendor:publish --provider="Fanmade\ServiceBinding\BindingServiceProvider" --tag=config
+php artisan vendor:publish --provider="Fanmade\ServiceBinding\BindingServiceProvider"
 ```
 
 Now you can add your bindings into the configuration file.

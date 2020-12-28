@@ -47,7 +47,10 @@
     "autoload": {
         "psr-4": {
             "Fanmade\\ServiceBinding\\": "src"
-        }
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

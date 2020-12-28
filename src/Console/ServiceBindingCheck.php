@@ -19,23 +19,37 @@ class ServiceBindingCheck extends Command
 
         $validator = new BindingConfigurationValidator();
 
+        $counter = 0;
+
         /** @noinspection PhpUndefinedFieldInspection */
         $config = $app->config['service-bindings'];
         if (!$config || !array_key_exists('bindings', $config)) {
             $this->info('No configuration found.');
-        } else {
-            foreach ($config['bindings'] as $model => $bindings) {
-                foreach ($bindings as $interface => $settings) {
-                    try {
-                        $validator->validateSettings($model, $interface, $settings);
-                    } catch (InvalidConfigurationException $e) {
-                        $this->error($e->getMessage());
-                    }
+
+            return 0;
+        }
+        foreach ($config['bindings'] as $model => $bindings) {
+            foreach ($bindings as $interface => $settings) {
+                try {
+                    $validator->validateSettings($model, $interface, $settings);
+                    $this->comment(
+                        "Validated configuration for model '{$model}' using interface '{$interface}'.",
+                        'vv'
+                    );
+
+                    $resolved = get_class($app->make($interface));
+                    $this->comment(
+                        "Resolved '{$resolved}'.",
+                        'vv'
+                    );
+                    $counter++;
+                } catch (InvalidConfigurationException $e) {
+                    $this->error($e->getMessage());
                 }
             }
         }
 
-        $this->info('Check successfull');
+        $this->info("Sucessfully checked {$counter} bindings.");
         return 0;
     }
 }

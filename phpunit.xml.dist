@@ -5,6 +5,7 @@
         <include>
             <directory suffix=".php">src/Resolver/</directory>
             <directory suffix=".php">src/Console</directory>
+            <file>src/helpers.php</file>
         </include>
     </coverage>
     <testsuites>
